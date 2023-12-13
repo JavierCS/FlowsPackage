@@ -6,16 +6,21 @@ import PackageDescription
 let package = Package(
     name: "FlowsPackage",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "FlowsPackage",
             targets: ["FlowsPackage"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/JavierCS/DependenciesPackage", branch: "main")
+    ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "FlowsPackage"),
+            name: "FlowsPackage",
+            dependencies: [
+                .product(name: "DependenciesPackage", package: "DependenciesPackage"),
+            ],
+            path: "Sources"
+        ),
         .testTarget(
             name: "FlowsPackageTests",
             dependencies: ["FlowsPackage"]),
